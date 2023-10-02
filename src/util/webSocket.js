@@ -1,10 +1,8 @@
 const socketIo = require('socket.io');
 const sendPushNotification = require('./pushNotifications');
 
-let io; // Biến lưu trữ instance của socket.io
-
 function webSocket(server) {
-    io = socketIo(server);
+    const io = socketIo(server);
 
     let expoPushToken = null;
     let receiveRequestsEnabled = false;
