@@ -7,16 +7,15 @@ function webSocket(server) {
     io = socketIo(server);
 
     let expoPushToken = null;
-    let receiveRequestsEnabled = true;
+    let receiveRequestsEnabled = false;
 
     io.on('connection', (socket) => {
         console.log('A new client connected');
 
         socket.on('rescue-request', (data) => {
-            console.log(receiveRequestsEnabled);
+            console.log(data);
             if (receiveRequestsEnabled) {
-                console.log(data);
-                sendPushNotification(expoPushToken, 'Yêu cầu cứu hộ mới !', data.message);
+                !!expoPushToken && sendPushNotification(expoPushToken, 'Yêu cầu cứu hộ mới !', data.message);
                 io.emit('new-rescue-request', data);
             }
         });
